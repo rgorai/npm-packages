@@ -1,13 +1,27 @@
 {
   "name": "complex-form-generator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Customize and generate React forms for complex payloads",
-  "main": "./dist/index.js",
   "repository": "https://github.com/rgorai/rgorai-npm-packages/tree/main/src/complex-form-generator",
   "author": "Ron Gorai - rgorai",
-  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "keywords": [
+    "react",
+    "complex",
+    "payload",
+    "object",
+    "seed",
+    "form",
+    "generator"
+  ],
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": ""
+    "build": "tsc && rollup -c"
   },
   "peerDependencies": {
     "react": "^18.2.0"
@@ -18,6 +32,8 @@
     "rollup": "^3.20.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.34.1"
-  }
+    "rollup-plugin-typescript2": "^0.34.1",
+    "typescript": "^5.0.4"
+  },
+  "license": "MIT"
 }
