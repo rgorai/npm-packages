@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+
+  .component-wrapper {
+    position: absolute;
+    width: fit-content;
+    top: 45%;
+    left: 50%;
+  }
+}
