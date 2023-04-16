@@ -48,6 +48,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
     "prettier": "^2.8.7",
+    "react-json-pretty": "^2.2.0",
     "sass": "^1.62.0",
     "stylelint": "^15.4.0",
     "stylelint-config-standard-scss": "^8.0.0",
