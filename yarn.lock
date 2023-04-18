@@ -1606,10 +1606,10 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@rgorai/eslint-config@^1.0.16":
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/@rgorai/eslint-config/-/eslint-config-1.0.16.tgz#1d457d27b411f508e99b23506aac258432d722aa"
-  integrity sha512-0STxtI877OA7DozvZROX9am5OCZo2pAyz4w1SyyiZWiS+NFH1jjQ/skueOt55ZFdn9VJt6Tp8pwkwodvB7zaDw==
+"@rgorai/eslint-config@^1.0.17":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@rgorai/eslint-config/-/eslint-config-1.0.17.tgz#ec784042704c6ef94c70af34aeecec355def1383"
+  integrity sha512-Qd0i/XYuJh0C4Hlh8GSswo3WcJb+K6Cir92m7/2M47t8ApkvpkeyWIpOLvdcBudpuRw20jrBeCZjFLv4Fi1+tA==
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"
