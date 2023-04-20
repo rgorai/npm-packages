@@ -10,7 +10,7 @@ import React, {
 import cx from 'classnames'
 // import CodeEditor from '@uiw/react-textarea-code-editor'
 // import type { UseSelectOptions } from '../misc/seeds'
-import AceEditor from 'react-ace'
+// import AceEditor from 'react-ace'
 import { getValue, setValue } from './utils/objects'
 import styles from './forms.module.scss'
 import {
@@ -21,9 +21,13 @@ import {
   isTextArea,
 } from './utils/typeGuards'
 
-type Props = {
+type FormFunction<T> = (payload: T) => void
+
+type Props<T> = {
   seed: Seed
-  onChange: (payload: any) => void
+  onSubmit: FormFunction<T>
+  formId?: string
+  onChange?: FormFunction<T>
 }
 
 type HelperProps = {
@@ -32,11 +36,17 @@ type HelperProps = {
   keyword?: keyof Keywords
 }
 
-const FormGenerator = ({ seed: defaultSeed, onChange }: Props) => {
+const FormGenerator = <T extends Record<string, any>>({
+  seed: defaultSeed,
+  onSubmit,
+  formId,
+  onChange,
+}: Props<T>) => {
   const [seedState, setSeedState] = useState(defaultSeed)
+  const [payload, setPayload] = useState({} as T)
 
-  const parseSeed = useCallback((seed: Seed) => {
-    let temp = {}
+  const parseSeed = useCallback((seed: Seed): T => {
+    let temp = {} as T
 
     const parseSeedHelper = (
       currSeed: Seed,
@@ -85,14 +95,21 @@ const FormGenerator = ({ seed: defaultSeed, onChange }: Props) => {
 
     parseSeedHelper(seed, [])
 
+    setPayload(temp)
+
     return temp
   }, [])
 
   // parse seed into payload on seed update,
   // follows same structure as render algorithm
   useEffect(() => {
-    onChange(parseSeed(seedState))
-  }, [onChange, parseSeed, seedState])
+    parseSeed(seedState)
+    // onChange?.(payload)
+  }, [parseSeed, seedState])
+
+  useEffect(() => {
+    onChange?.(payload)
+  }, [onChange, payload])
 
   const FormGeneratorHelper = (helperProps: HelperProps) => {
     const {
@@ -344,10 +361,22 @@ const FormGenerator = ({ seed: defaultSeed, onChange }: Props) => {
   // call helper to create form
   return (
     <div className={styles.formContainer}>
-      {FormGeneratorHelper({
-        seed: seedState,
-        keychain: [],
-      })}
+      <form
+        id={formId ?? 'form-generator'}
+        onSubmit={(ev) => {
+          ev.preventDefault()
+          onSubmit(payload)
+        }}
+      >
+        {FormGeneratorHelper({
+          seed: seedState,
+          keychain: [],
+        })}
+
+        <button form="form-generator" type="submit">
+          Submit
+        </button>
+      </form>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 // import FormGenerator from 'complex-form-generator'
 import { useState } from 'react'
 import JSONPretty from 'react-json-pretty'
+import jsonPrettyStyle from 'react-json-pretty/dist/1337'
 import FormGenerator from './complex-form-generator/src/FormGenerator'
 
 const TEST_SEED: Seed = {
@@ -70,12 +71,13 @@ const App = () => {
         <div style={{ width: '20em' }}>
           <FormGenerator
             seed={TEST_SEED}
-            onChange={(payload) => setPayload(payload)}
+            // onChange={(payload) => setPayload(payload)}
+            onSubmit={(payload) => setPayload(payload)}
           />
         </div>
 
         <div style={{ position: 'sticky', top: '3em' }}>
-          <JSONPretty data={payload} />
+          <JSONPretty data={payload} theme={jsonPrettyStyle} />
         </div>
       </div>
     </div>
