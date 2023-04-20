@@ -8,7 +8,7 @@ $danger-button-color: #d64747;
 
   label {
     padding-bottom: 0.5rem;
-    margin-left: 0.1rem;
+    // margin-left: 0.1rem;
   }
 
   .noKey {
@@ -53,24 +53,24 @@ $danger-button-color: #d64747;
     width: max-content;
   }
 
-  .removeButton {
-    color: white;
-    background-color: $danger-button-color;
-    padding: 0.4rem;
-    padding-bottom: 0.3rem;
-    width: min-content;
-    height: min-content;
+  // .removeButton {
+  //   color: white;
+  //   background-color: $danger-button-color;
+  //   padding: 0.4rem;
+  //   padding-bottom: 0.3rem;
+  //   width: min-content;
+  //   height: min-content;
 
-    img {
-      width: 1.5rem;
-      filter: invert(1);
-    }
+  //   img {
+  //     width: 1.5rem;
+  //     filter: invert(1);
+  //   }
 
-    &:disabled {
-      background-color: color.adjust($danger-button-color, $lightness: 20%);
-      cursor: not-allowed;
-    }
-  }
+  //   &:disabled {
+  //     background-color: color.adjust($danger-button-color, $lightness: 20%);
+  //     cursor: not-allowed;
+  //   }
+  // }
 
   hr {
     width: 100%;

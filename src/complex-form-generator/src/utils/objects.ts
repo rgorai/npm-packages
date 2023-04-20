@@ -1,4 +1,4 @@
-const getValue = <T>(source: any, keychain: Keychain): T =>
+const getValue = <T = any>(source: any, keychain: Keychain): T =>
   keychain.length === 0
     ? source
     : getValue(source[keychain[0]], keychain.slice(1))
