@@ -1,0 +1,7 @@
+@use '../mixins' as *;
+
+.navContainer {
+  @include flex-display(row);
+
+  margin: 0 2.75vw;
+}

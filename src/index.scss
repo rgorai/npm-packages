@@ -1,4 +1,4 @@
-@use './mixins' as *;
+@import '~bootstrap/scss/bootstrap';
 
 body {
   margin: 0;
@@ -14,15 +14,7 @@ code {
     monospace;
 }
 
-.App {
-  width: 100%;
-  min-height: 100vh;
-
-  .component-wrapper {
-    @include flex-display(row, flex-start, flex-start);
-
-    width: fit-content;
-    margin: 10em auto;
-    gap: 5em;
-  }
-}
+// .App {
+//   width: 100%;
+//   min-height: 100vh;
+// }

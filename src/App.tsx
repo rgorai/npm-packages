@@ -2,84 +2,66 @@
 import { useState } from 'react'
 import JSONPretty from 'react-json-pretty'
 import jsonPrettyStyle from 'react-json-pretty/dist/1337'
-import FormGenerator from './complex-form-generator/src/FormGenerator'
+import Editor, { OnMount } from '@monaco-editor/react'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import FormGenerator from './Packages/complex-form-generator/src/FormGenerator'
+// import AceEditor from 'react-ace'
+// import "ace-builds/src-noconflict/mode-typescript"
+// import CodeMirror from '@uiw/react-codemirror';
+// import { typescript } from '@codemirror/lang-typescript'
+import styles from './App.module.scss'
+import CfgDemoPage from './Demos/ComplexFormGenerator/CfgDemoPage'
+import Navbar from './Main/Navbar'
+import DemoContainer from './Main/DemoContainer'
 
-const TEST_SEED: Seed = {
-  title: '',
-  $useTextArea: { hello: '', again: '' },
-  $noKey: 'A TEST',
-  actions: [
-    // { $noKey: 'testing' },
-    {
-      label: '',
-      params: '',
-      disableOnSubmit: false,
-      $useSelectOptions: {
-        type: [
-          {
-            _option: 'button',
-          },
-          {
-            _option: 'link',
-            _defaultOption: true,
-            _assocPayload: {
-              disableForm: false,
-              url: '',
-              $useCodeArea: {
-                lol: {
-                  _value: '',
-                  _language: 'java',
-                },
-              },
-              listOfSelect: [
-                {
-                  $useSelectOptions: {
-                    target: [
-                      { _option: '_blank' },
-                      { _option: '_self' },
-                      { _option: '_parent' },
-                    ],
-                    testing: [
-                      {
-                        _option: 'hello',
-                        // _assocPayload: { hello: '', hi: 'hi' },
-                      },
-                      {
-                        _option: 'hahaha',
-                        _assocPayload: { haha: '', lol: 'hahahaha' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-        anotherOne: [{ _option: 'hello' }, { _option: 'hello again' }],
-      },
+// import * as monaco from 'monaco-editor'
+
+const APP_CONTENT: AppContent = [
+  {
+    name: 'Complex Form Generator',
+    path: '/complex-form-generator',
+    elements: {
+      Demo: <CfgDemoPage />,
+      Documentation: <>cfg docs</>,
+      Code: <>cfg code</>,
     },
-  ],
-  moreStuffAfter: '',
-}
+  },
+  {
+    name: 'ESlint Config',
+    path: '/eslint-config',
+    elements: {
+      Demo: <>eslint config page</>,
+      Documentation: <>eslint config docs</>,
+      Code: <>eslint config code</>,
+    },
+  },
+]
 
 const App = () => {
-  const [payload, setPayload] = useState({})
-
   return (
     <div className="App">
-      <div className="component-wrapper">
-        <div style={{ width: '20em' }}>
-          <FormGenerator
-            seed={TEST_SEED}
-            // onChange={(payload) => setPayload(payload)}
-            onSubmit={(payload) => setPayload(payload)}
-          />
-        </div>
+      <BrowserRouter>
+        <Navbar appContent={APP_CONTENT} />
 
-        <div style={{ position: 'sticky', top: '3em' }}>
-          <JSONPretty data={payload} theme={jsonPrettyStyle} />
-        </div>
-      </div>
+        <main>
+          <Routes>
+            {APP_CONTENT.map((e) => (
+              <Route
+                path={e.path}
+                element={<DemoContainer {...e.elements} />}
+                key={e.path}
+              />
+            ))}
+
+            <Route
+              path="/"
+              element={<Navigate to={`${APP_CONTENT[0].path}`} />}
+            />
+
+            <Route path="*" element={<>not found</>} />
+          </Routes>
+        </main>
+      </BrowserRouter>
     </div>
   )
 }

@@ -1,0 +1,40 @@
+.demoContainer {
+  :global .nav-tabs {
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+    margin-bottom: 2.5em;
+    gap: 0.5em;
+
+    .nav-link {
+      color: #696969;
+      border: 0;
+      border-bottom: 3px solid transparent;
+      box-sizing: content-box;
+
+      &:hover {
+        background-color: #f2f2f2;
+        border-bottom: 3px solid #dee2e6;
+      }
+    }
+
+    .nav-item:nth-child(1) .nav-link {
+      width: 3em;
+    }
+    .nav-item:nth-child(2) .nav-link {
+      width: 7em;
+    }
+    .nav-item:nth-child(3) .nav-link {
+      width: 2.5em;
+    }
+
+    .active {
+      font-weight: 600;
+      color: black;
+      border: 0;
+      border-bottom: 3px solid black !important;
+    }
+  }
+}

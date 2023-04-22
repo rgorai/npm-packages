@@ -25,7 +25,8 @@
     "build": "tsc && rollup -c"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "bootstrap": "^5.2.3"
   },
   "dependencies": {
     "ace-builds": "^1.17.0",

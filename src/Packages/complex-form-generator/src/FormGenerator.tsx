@@ -1,16 +1,11 @@
 import React, {
   ReactNode,
   useEffect,
-  Dispatch,
-  SetStateAction,
   useState,
   Fragment,
   useCallback,
 } from 'react'
 import cx from 'classnames'
-// import CodeEditor from '@uiw/react-textarea-code-editor'
-// import type { UseSelectOptions } from '../misc/seeds'
-// import AceEditor from 'react-ace'
 import { getValue, setValue } from './utils/objects'
 import styles from './forms.module.scss'
 import {
@@ -25,9 +20,9 @@ type FormFunction<T> = (payload: T) => void
 
 type Props<T> = {
   seed: Seed
-  onSubmit: FormFunction<T>
   formId?: string
   onChange?: FormFunction<T>
+  onSubmit?: FormFunction<T>
 }
 
 type HelperProps = {
@@ -38,9 +33,9 @@ type HelperProps = {
 
 const FormGenerator = <T extends Record<string, any>>({
   seed: defaultSeed,
-  onSubmit,
   formId,
   onChange,
+  onSubmit,
 }: Props<T>) => {
   const [seedState, setSeedState] = useState(defaultSeed)
   const [payload, setPayload] = useState({} as T)
@@ -260,6 +255,7 @@ const FormGenerator = <T extends Record<string, any>>({
                       <h2>{currItem}</h2>
                       <button
                         className={styles.removeButton}
+                        type="button"
                         onClick={() => removeFromList(i)}
                         title={`Remove '${currItem}'`}
                         disabled={currVal.length <= 1}
@@ -288,6 +284,7 @@ const FormGenerator = <T extends Record<string, any>>({
 
               <button
                 className={styles.addButton}
+                type="button"
                 onClick={() =>
                   addToList(getValue(defaultSeed, [...newKeychain, 0]))
                 }
@@ -365,7 +362,8 @@ const FormGenerator = <T extends Record<string, any>>({
         id={formId ?? 'form-generator'}
         onSubmit={(ev) => {
           ev.preventDefault()
-          onSubmit(payload)
+          onSubmit?.(payload)
+          console.log('SUBMITTED')
         }}
       >
         {FormGeneratorHelper({
@@ -373,9 +371,11 @@ const FormGenerator = <T extends Record<string, any>>({
           keychain: [],
         })}
 
-        <button form="form-generator" type="submit">
-          Submit
-        </button>
+        {onSubmit && (
+          <button form="form-generator" type="submit">
+            Submit
+          </button>
+        )}
       </form>
     </div>
   )
