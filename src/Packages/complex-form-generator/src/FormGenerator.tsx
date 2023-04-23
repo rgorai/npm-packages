@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import cx from 'classnames'
 import { getValue, setValue } from './utils/objects'
-import styles from './forms.module.scss'
+import styles from './formGenerator.module.scss'
 import {
   isCodeArea,
   isKeyword,

@@ -33,6 +33,7 @@
     "@types/react-dom": "^18.0.0",
     "bootstrap": "^5.2.3",
     "monaco-editor": "^0.37.1",
+    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
