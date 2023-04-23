@@ -1,22 +1,24 @@
 import { IAceEditorProps } from 'react-ace'
 
 declare global {
-  type KeyObject<T> = { [key: string]: T }
-
   type Keywords = {
-    $useTextArea: KeyObject<string>
-    $useSelectOptions: KeyObject<
+    $useTextArea: Record<string, string>
+    $useSelectOptions: Record<
+      string,
       {
         _option: string
         _defaultOption?: boolean
         _assocPayload?: Seed
       }[]
     >
-    $useCodeArea: KeyObject<{
-      _value: string
-      _language: string
-      _props?: { [key: keyof IAceEditorProps]: IAceEditorProps[key] }
-    }>
+    $useCodeArea: Record<
+      string,
+      {
+        _value: string
+        _language: string
+        _props?: { [key: keyof IAceEditorProps]: IAceEditorProps[key] }
+      }
+    >
   }
 
   type UseKeyword<T> = Keywords[T][string]

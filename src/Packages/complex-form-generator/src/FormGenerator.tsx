@@ -312,12 +312,6 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
                       seed: currVal[i],
                       keychain: [...newKeychain, i],
                     })}
-
-                    {/* <hr
-                      className={cx(styles.reduceWidth90, {
-                        [styles.hide]: i === currVal.length - 1,
-                      })}
-                    /> */}
                   </React.Fragment>
                 )
               })}
@@ -344,7 +338,6 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
                 seed: currVal,
                 keychain: newKeychain,
               })}
-              {/* <hr className={styles.reduceWidth80} /> */}
             </React.Fragment>
           )
         }

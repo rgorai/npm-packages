@@ -1,7 +1,6 @@
 type Primitives = string | number | boolean
 
-// TODO: find a way to enforce one element for seed array
-type SeedValue = Primitives | Seed | Seed[] // | Exclude<any, Keywords>
+type SeedValue = Primitives | Seed | Seed[]
 
 type Seed = {
   [key: string]: SeedValue

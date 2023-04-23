@@ -5,10 +5,11 @@ import jsonPrettyStyle from 'react-json-pretty/dist/1337'
 import Editor, { OnChange, OnMount } from '@monaco-editor/react'
 import * as monaco from 'monaco-editor'
 import * as typescript from 'monaco-editor/esm/vs/language/typescript/monaco.contribution'
+import * as ts from 'typescript'
 import FormGenerator from '../../Packages/complex-form-generator/src'
 import styles from './cfgDemoPage.module.scss'
 
-const TEST_SEED: Seed = {
+const DEMO_SEED: Seed = {
   title: '',
   $useTextArea: { hello: '', again: '' },
   $noKey: 'A TEST',
@@ -74,12 +75,10 @@ const TEST_SEED: Seed = {
   },
 }
 
-const seedValue = `const TEST_SEED: Seed = {
+const seedValue = `const DEMO_SEED: Seed = {
   title: '',
   $useTextArea: { hello: '', again: '' },
-  $noKey: 'A TEST',
   actions: [
-    // { $noKey: 'testing' },
     {
       label: '',
       params: '',
@@ -132,28 +131,51 @@ const seedValue = `const TEST_SEED: Seed = {
   moreStuffAfter: '',
 }`
 
+const SEED_LIB = `type Keywords = {
+  $useTextArea: Record<string, string>
+  $useSelectOptions: Record<
+    string,
+    {
+      _option: string
+      _defaultOption?: boolean
+      _assocPayload?: Seed
+    }[]
+  >
+  $useCodeArea: Record<
+    string,
+    {
+      _value: string
+      _language: string
+      _props?: { [key: keyof IAceEditorProps]: IAceEditorProps[key] }
+    }
+  >
+}
+
+type Primitives = string | number | boolean
+
+type SeedValue = Primitives | Seed | Seed[]
+
+type Seed = {
+  [key: string]: SeedValue
+} & {
+  [key in keyof Keywords]?: Keywords[key]
+}`
+
 const CfgDemoPage = () => {
   const [payload, setPayload] = useState({})
-  const [seedCode, setSeedCode] = useState(seedValue)
+  const [seedCodeStr, setSeedCodeStr] = useState(seedValue)
   const [showSubmitMessage, setShowSubmitMessage] = useState(false)
   const editorRef = useRef<any>(null)
 
   const handleEditorMount: OnMount = (editor, monaco) => {
-    monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
-      target: monaco.languages.typescript.ScriptTarget.ESNext,
-      allowNonTsExtensions: true,
-      moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-      include: ['tsconfig.json'],
-      module: monaco.languages.typescript.ModuleKind.CommonJS,
-    })
-
+    monaco.languages.typescript.typescriptDefaults.addExtraLib(SEED_LIB)
     editorRef.current = editor
   }
 
   const onEditorChange: OnChange = (value, ev) => {
     // console.log(value)
     if (value) {
-      setSeedCode(value)
+      setSeedCodeStr(value)
       console.log(ev)
 
       // monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
@@ -189,6 +211,27 @@ const CfgDemoPage = () => {
     setShowSubmitMessage(false)
   }, [payload])
 
+  useEffect(() => {
+    const sourceFile = ts.createSourceFile(
+      'temp.ts',
+      seedCodeStr,
+      ts.ScriptTarget.Latest
+    )
+    const variables: { [name: string]: any } = {}
+    function visit(node: ts.Node) {
+      if (ts.isVariableDeclaration(node)) {
+        const name = node.name.getText(sourceFile)
+        const { initializer } = node
+        if (initializer) {
+          // variables[name] = eval(initializer.getText(sourceFile))
+        }
+      }
+      ts.forEachChild(node, visit)
+    }
+    visit(sourceFile)
+    console.log('HERE', variables)
+  }, [seedCodeStr])
+
   return (
     <div className={styles.cfgContainer}>
       <div className={styles.headers}>
@@ -216,14 +259,14 @@ const CfgDemoPage = () => {
 
         <div className={styles.generatorContainer}>
           <FormGenerator
-            seed={TEST_SEED}
+            seed={DEMO_SEED}
             onChange={(payload) => setPayload(payload)}
             onSubmit={(payload) => {
               setShowSubmitMessage(true)
-              console.log('payload value in onSubmit:', payload)
+              console.log('payload passed to onSubmit:', payload)
             }}
             floatingLabels
-            groupNestedChildren
+            // groupNestedChildren
           />
         </div>
 
