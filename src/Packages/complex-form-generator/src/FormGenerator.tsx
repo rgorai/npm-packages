@@ -18,12 +18,22 @@ import {
 
 type FormFunction<T> = (payload: T) => void
 
+type StyleOptions =
+  | {
+      suppressStyles: true
+    }
+  | {
+      suppressStyles?: false
+      floatingLabels?: true
+      groupNestedChildren?: true
+    }
+
 type Props<T> = {
   seed: Seed
   formId?: string
   onChange?: FormFunction<T>
   onSubmit?: FormFunction<T>
-}
+} & StyleOptions
 
 type HelperProps = {
   seed: Seed
@@ -31,14 +41,11 @@ type HelperProps = {
   keyword?: keyof Keywords
 }
 
-const FormGenerator = <T extends Record<string, any>>({
-  seed: defaultSeed,
-  formId,
-  onChange,
-  onSubmit,
-}: Props<T>) => {
-  const [seedState, setSeedState] = useState(defaultSeed)
+const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
+  const [seedState, setSeedState] = useState(props.seed)
   const [payload, setPayload] = useState({} as T)
+  const floatingLabels = !props.suppressStyles && props.floatingLabels
+  const groupNestedChildren = !props.suppressStyles && props.groupNestedChildren
 
   const parseSeed = useCallback((seed: Seed): T => {
     let temp = {} as T
@@ -102,9 +109,16 @@ const FormGenerator = <T extends Record<string, any>>({
     // onChange?.(payload)
   }, [parseSeed, seedState])
 
+  const { onChange } = props
   useEffect(() => {
     onChange?.(payload)
   }, [onChange, payload])
+
+  const getClassname = (classname: string) =>
+    cx({ [classname]: !props.suppressStyles })
+
+  const getFloatingClassname = (classname?: string) =>
+    getClassname(`${floatingLabels ? 'form-floating' : ''} ${classname}`)
 
   const FormGeneratorHelper = (helperProps: HelperProps) => {
     const {
@@ -122,9 +136,9 @@ const FormGenerator = <T extends Record<string, any>>({
         '-'
       )}`
       const currKeychainStr = newKeychain.join('.')
-      const currLabel = (
+      const currLabel = (classname?: string) => (
         <label
-          // className={cx({ [styles.noKey]: currKey === '$noKey' })}
+          className={classname ? getClassname(classname) : ''}
           htmlFor={currInputId}
         >
           {currKey}
@@ -172,14 +186,20 @@ const FormGenerator = <T extends Record<string, any>>({
         if (currKeyword) {
           if (isTextArea(currKeyword, currVal)) {
             formElements.push(
-              <React.Fragment key={currKeychainStr}>
-                {currLabel}
+              <div
+                className={getFloatingClassname('mb-3')}
+                key={currKeychainStr}
+              >
+                {!floatingLabels && currLabel()}
                 <textarea
                   id={currInputId}
+                  className={getClassname('form-control')}
                   value={currVal}
                   onChange={(ev) => onInputChange(ev.target.value)}
+                  placeholder={floatingLabels ? 'placeholder' : ''}
                 />
-              </React.Fragment>
+                {floatingLabels && currLabel()}
+              </div>
             )
           } else if (isSelectOptions(currKeyword, currVal)) {
             if (currVal.length === 0)
@@ -193,20 +213,23 @@ const FormGenerator = <T extends Record<string, any>>({
               onSelectInputChange(defaultOption._option)
             } else {
               formElements.push(
-                <React.Fragment key={currKeychainStr}>
-                  {currLabel}
-
-                  <select
-                    id={currInputId}
-                    value={currVal[currOptionIndex]._option}
-                    onChange={(ev) => onSelectInputChange(ev.target.value)}
-                  >
-                    {currVal.map((e, i) => (
-                      <option value={e._option} key={i}>
-                        {e._option}
-                      </option>
-                    ))}
-                  </select>
+                <div key={currKeychainStr}>
+                  <div className={getFloatingClassname()}>
+                    {!floatingLabels && currLabel()}
+                    <select
+                      id={currInputId}
+                      className={getClassname('form-select mb-3')}
+                      value={currVal[currOptionIndex]._option}
+                      onChange={(ev) => onSelectInputChange(ev.target.value)}
+                    >
+                      {currVal.map((e, i) => (
+                        <option value={e._option} key={i}>
+                          {e._option}
+                        </option>
+                      ))}
+                    </select>
+                    {floatingLabels && currLabel()}
+                  </div>
 
                   {currVal[currOptionIndex]._assocPayload &&
                     FormGeneratorHelper({
@@ -217,13 +240,13 @@ const FormGenerator = <T extends Record<string, any>>({
                         '_assocPayload',
                       ],
                     })}
-                </React.Fragment>
+                </div>
               )
             }
           } else if (isCodeArea(currKeyword, currVal)) {
             formElements.push(
               <React.Fragment key={currKeychainStr}>
-                {currLabel}
+                {currLabel()}
                 {/* <AceEditor value={currVal._value} mode={currVal._language} /> */}
               </React.Fragment>
             )
@@ -246,25 +269,42 @@ const FormGenerator = <T extends Record<string, any>>({
         // check for object values
         else if (Array.isArray(currVal)) {
           formElements.push(
-            <div className={styles.listItemContainer} key={currKeychainStr}>
+            <div
+              className={getClassname(
+                `mb-4 ${groupNestedChildren ? 'form-control' : ''}`
+              )}
+              key={currKeychainStr}
+            >
               {currVal.map((_, i) => {
                 const currItem = `${currKey}[${i}]`
                 return (
                   <React.Fragment key={i}>
                     <div className={styles.headerContainer}>
-                      <h2>{currItem}</h2>
+                      <h1>{currItem}</h1>
                       <button
-                        className={styles.removeButton}
+                        className={cx(
+                          getClassname('btn btn-danger'),
+                          styles.removeButton
+                        )}
                         type="button"
                         onClick={() => removeFromList(i)}
-                        title={`Remove '${currItem}'`}
                         disabled={currVal.length <= 1}
+                        title={`Remove '${currItem}'`}
                       >
-                        {/* <img
-                        src={process.env.PUBLIC_URL + '/trash-icon.png'}
-                        alt="remove card"
-                      /> */}
-                        Remove
+                        {props.suppressStyles ? (
+                          'Remove'
+                        ) : (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-trash3-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                          </svg>
+                        )}
                       </button>
                     </div>
 
@@ -273,36 +313,38 @@ const FormGenerator = <T extends Record<string, any>>({
                       keychain: [...newKeychain, i],
                     })}
 
-                    <hr
+                    {/* <hr
                       className={cx(styles.reduceWidth90, {
                         [styles.hide]: i === currVal.length - 1,
                       })}
-                    />
+                    /> */}
                   </React.Fragment>
                 )
               })}
 
               <button
-                className={styles.addButton}
+                className={cx('mt-2 mb-3', getClassname('btn btn-secondary'))}
                 type="button"
                 onClick={() =>
-                  addToList(getValue(defaultSeed, [...newKeychain, 0]))
+                  addToList(getValue(props.seed, [...newKeychain, 0]))
                 }
               >
                 {`Add '${currKey}'`}
               </button>
-              <hr />
+              {!groupNestedChildren && <hr className="mt-3 mb-4" />}
             </div>
           )
         } else if (typeof currVal === 'object') {
           formElements.push(
             <React.Fragment key={currKeychainStr}>
-              <h3>{currKey}</h3>
+              <div className={styles.headerContainer}>
+                <h1>{currKey}</h1>
+              </div>
               {FormGeneratorHelper({
                 seed: currVal,
                 keychain: newKeychain,
               })}
-              <hr className={styles.reduceWidth80} />
+              {/* <hr className={styles.reduceWidth80} /> */}
             </React.Fragment>
           )
         }
@@ -310,29 +352,34 @@ const FormGenerator = <T extends Record<string, any>>({
         // check for base case values
         else if (typeof currVal === 'string') {
           formElements.push(
-            <React.Fragment key={currKeychainStr}>
-              {currLabel}
+            <div className={getFloatingClassname('mb-3')} key={currKeychainStr}>
+              {!floatingLabels && currLabel()}
               <input
                 id={currInputId}
+                className={getClassname('form-control')}
                 type="text"
                 value={currVal}
                 onChange={(ev) => onInputChange(ev.target.value)}
+                placeholder={floatingLabels ? 'placeholder' : ''}
               />
-            </React.Fragment>
+              {floatingLabels && currLabel()}
+            </div>
           )
         } else if (typeof currVal === 'boolean') {
           formElements.push(
-            <React.Fragment key={currKeychainStr}>
-              <div className={styles.checkboxContainer}>
-                <input
-                  id={currInputId}
-                  type="checkbox"
-                  checked={currVal}
-                  onChange={(ev) => onInputChange(ev.target.checked)}
-                />
-                {currLabel}
-              </div>
-            </React.Fragment>
+            <div
+              className={getClassname('mt-4 mb-3 form-check')}
+              key={currKeychainStr}
+            >
+              <input
+                id={currInputId}
+                className={getClassname('form-check-input')}
+                type="checkbox"
+                checked={currVal}
+                onChange={(ev) => onInputChange(ev.target.checked)}
+              />
+              {currLabel('form-check-label')}
+            </div>
           )
         }
 
@@ -359,11 +406,10 @@ const FormGenerator = <T extends Record<string, any>>({
   return (
     <div className={styles.formContainer}>
       <form
-        id={formId ?? 'form-generator'}
+        id={props.formId ?? 'form-generator'}
         onSubmit={(ev) => {
           ev.preventDefault()
-          onSubmit?.(payload)
-          console.log('SUBMITTED')
+          props.onSubmit?.(payload)
         }}
       >
         {FormGeneratorHelper({
@@ -371,10 +417,17 @@ const FormGenerator = <T extends Record<string, any>>({
           keychain: [],
         })}
 
-        {onSubmit && (
-          <button form="form-generator" type="submit">
-            Submit
-          </button>
+        {props.onSubmit && (
+          <>
+            <hr />
+            <button
+              className={getClassname('btn btn-primary')}
+              form="form-generator"
+              type="submit"
+            >
+              Submit
+            </button>
+          </>
         )}
       </form>
     </div>

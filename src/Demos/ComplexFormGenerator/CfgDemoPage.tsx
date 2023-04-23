@@ -1,5 +1,5 @@
 import path from 'path'
-import { useReducer, useRef, useState } from 'react'
+import { useEffect, useReducer, useRef, useState } from 'react'
 import JSONPretty from 'react-json-pretty'
 import jsonPrettyStyle from 'react-json-pretty/dist/1337'
 import Editor, { OnChange, OnMount } from '@monaco-editor/react'
@@ -64,6 +64,14 @@ const TEST_SEED: Seed = {
     },
   ],
   moreStuffAfter: '',
+  anObject: {
+    hello: '',
+    goodbye: '',
+    sucker: {
+      yes: '',
+      nested: true,
+    },
+  },
 }
 
 const seedValue = `const TEST_SEED: Seed = {
@@ -177,6 +185,10 @@ const CfgDemoPage = () => {
     }
   }
 
+  useEffect(() => {
+    setShowSubmitMessage(false)
+  }, [payload])
+
   return (
     <div className={styles.cfgContainer}>
       <div className={styles.headers}>
@@ -186,7 +198,6 @@ const CfgDemoPage = () => {
       </div>
       <div className={styles.content}>
         <div className={styles.editorContainer}>
-          {/* <h1>Seed Object</h1> */}
           <div className={styles.editorWrapper}>
             <Editor
               height="75vh"
@@ -204,7 +215,6 @@ const CfgDemoPage = () => {
         </div>
 
         <div className={styles.generatorContainer}>
-          {/* <h1>Generated Form</h1> */}
           <FormGenerator
             seed={TEST_SEED}
             onChange={(payload) => setPayload(payload)}
@@ -212,15 +222,17 @@ const CfgDemoPage = () => {
               setShowSubmitMessage(true)
               console.log('payload value in onSubmit:', payload)
             }}
+            floatingLabels
+            groupNestedChildren
           />
         </div>
 
         <div className={styles.jsonContainer}>
-          {/* <h1>Parsed Payload</h1> */}
           <JSONPretty data={payload} theme={jsonPrettyStyle} />
           {showSubmitMessage && (
-            <div>
-              {'Fired onSubmit with payload above! (verify in console)'}
+            <div className="card mt-3 p-3 bg-warning text-center">
+              <div>{'Fired onSubmit with payload above!'}</div>
+              <div className="text-muted">{'(verify in console)'}</div>
             </div>
           )}
         </div>

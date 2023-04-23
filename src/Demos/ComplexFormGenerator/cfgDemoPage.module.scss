@@ -6,6 +6,9 @@
 }
 
 $border-radius: 0.5em;
+$container-gap: 5vw;
+$editor-width: 30vw;
+$json-width: 25vw;
 
 .cfgContainer {
   @include flex-display(column);
@@ -22,7 +25,6 @@ $border-radius: 0.5em;
     z-index: 1;
     padding: 0.5em 0 0.3em;
     margin-bottom: 1.5em;
-    // margin: 0 2em;
 
     h1 {
       position: absolute;
@@ -34,10 +36,15 @@ $border-radius: 0.5em;
         left: 4rem;
       }
       &:nth-of-type(2) {
-        left: calc(4rem + 35vw);
+        left: calc(4rem + $editor-width + $container-gap);
       }
       &:nth-of-type(3) {
-        left: calc(4rem + 40vw + calc(35vw - 8rem));
+        left: calc(
+          4rem + $editor-width + 2 * $container-gap +
+            calc(
+              100vw - 2 * $container-gap - $editor-width - $json-width - 8rem
+            )
+        );
       }
     }
   }
@@ -46,15 +53,15 @@ $border-radius: 0.5em;
 .content {
   @include flex-display(row, space-between, flex-start);
 
-    width: 100%;
-    padding: 0 4rem 4em;
-    gap: 5vw;
+  width: 100%;
+  padding: 0 4rem 4em;
+  gap: $container-gap;
 }
 
 .editorContainer {
   @include sticky-container;
 
-  width: 30vw;
+  width: $editor-width;
   flex-shrink: 0;
 
   .editorWrapper {
@@ -65,19 +72,18 @@ $border-radius: 0.5em;
 }
 
 .generatorContainer {
-  flex-shrink: 1;
+  flex-grow: 1;
 }
 
 .jsonContainer {
   @include sticky-container;
-  // overflow-y: auto;
-  // overflow-x: visible;
+
+  width: $json-width;
 
   pre {
     max-height: 75vh;
     position: sticky;
     top: 1em;
-    width: 25vw;
     padding: 1.5em;
     border-radius: $border-radius;
     margin: 0;

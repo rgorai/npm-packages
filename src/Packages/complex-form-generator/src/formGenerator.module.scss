@@ -4,6 +4,28 @@
 $danger-button-color: #d64747;
 
 .formContainer {
+  h1 {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  label {
+    margin-bottom: 0.5rem;
+  }
+
+  .removeButton {
+    &:disabled {
+      cursor: not-allowed !important;
+      pointer-events: all !important;
+    }
+
+    svg {
+      scale: 1.1;
+      margin-bottom: 0.2em;
+    }
+  }
+
   // @include flex-display(column, flex-start, flex-start);
 
   // label {
@@ -25,11 +47,13 @@ $danger-button-color: #d64747;
   //   font-family: unset;
   // }
 
-  // .headerContainer {
-  //   @include flex-display(row, space-between);
+  .headerContainer {
+    @include flex-display(row, space-between);
 
-  //   width: 100%;
-  // }
+    width: 100%;
+    margin-bottom: 1em;
+    margin-top: 1.5em;
+  }
 
   // .checkboxContainer {
   //   @include flex-display(row);
