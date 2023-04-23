@@ -1,6 +1,7 @@
 {
   "name": "rgorai-npm-packages",
-  "description": "Ron Gorai's React + TS boilerplate for developing npm packages",
+  "homepage": "https://rgorai.github.io/npm-packages",
+  "description": "Ron Gorai's React + TS boilerplate for developing and demoing npm packages",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +11,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install && chmod ug+x .husky/*",
-    "pre-commit": "lint-staged --quiet"
+    "pre-commit": "lint-staged --quiet",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "@rgorai/eslint-config/.eslintrc"
@@ -52,6 +55,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
     "prettier": "^2.8.7",
