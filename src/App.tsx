@@ -40,7 +40,7 @@ const APP_CONTENT: AppContent = [
 const App = () => {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename="/npm-packages">
         <Navbar appContent={APP_CONTENT} />
 
         <main>
@@ -55,7 +55,7 @@ const App = () => {
 
             <Route
               path="/"
-              element={<Navigate to={`${APP_CONTENT[0].path}`} />}
+              element={<Navigate replace to={`${APP_CONTENT[0].path}`} />}
             />
 
             <Route path="*" element={<>not found</>} />
