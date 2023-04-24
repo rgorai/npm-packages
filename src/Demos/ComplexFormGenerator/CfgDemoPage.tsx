@@ -212,24 +212,24 @@ const CfgDemoPage = () => {
   }, [payload])
 
   useEffect(() => {
-    const sourceFile = ts.createSourceFile(
-      'temp.ts',
-      seedCodeStr,
-      ts.ScriptTarget.Latest
-    )
-    const variables: { [name: string]: any } = {}
-    function visit(node: ts.Node) {
-      if (ts.isVariableDeclaration(node)) {
-        const name = node.name.getText(sourceFile)
-        const { initializer } = node
-        if (initializer) {
-          // variables[name] = eval(initializer.getText(sourceFile))
-        }
-      }
-      ts.forEachChild(node, visit)
-    }
-    visit(sourceFile)
-    console.log('HERE', variables)
+    // const sourceFile = ts.createSourceFile(
+    //   'temp.ts',
+    //   seedCodeStr,
+    //   ts.ScriptTarget.Latest
+    // )
+    // const variables: { [name: string]: any } = {}
+    // function visit(node: ts.Node) {
+    //   if (ts.isVariableDeclaration(node)) {
+    //     const name = node.name.getText(sourceFile)
+    //     const { initializer } = node
+    //     if (initializer) {
+    //       // variables[name] = eval(initializer.getText(sourceFile))
+    //     }
+    //   }
+    //   ts.forEachChild(node, visit)
+    // }
+    // visit(sourceFile)
+    // console.log('HERE', variables)
   }, [seedCodeStr])
 
   return (
