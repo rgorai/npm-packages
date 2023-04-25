@@ -1,0 +1,106 @@
+@use '../../mixins' as *;
+
+.footerContainer {
+  @include flex-display(row, flex-start, flex-start);
+
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 2rem 5vw 6rem;
+  color: white;
+  row-gap: 1.5rem;
+  column-gap: 10%;
+
+  .footerLink {
+    width: 100%;
+    color: rgba(255, 255, 255, 90%);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--accent-01);
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    &:has(.horizontal) {
+      @include flex-display(row);
+      gap: 1em;
+    }
+  }
+
+  .contentContainer {
+    flex-shrink: 0;
+    max-width: 20rem;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    p,
+    a {
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 1.25em;
+      font-weight: 700;
+      margin-bottom: 0.75em;
+    }
+
+    ul li:last-of-type p {
+      margin-bottom: 0.25em;
+    }
+
+    :global .navbar {
+      padding: 0;
+    }
+
+    :global .navbar-nav {
+      flex-direction: column;
+      gap: 1em;
+
+      a {
+        padding: 0;
+      }
+    }
+  }
+
+  .message {
+    color: #ffffffa6;
+    font-weight: 300;
+
+    a {
+      color: #ffffffa6;
+    }
+  }
+
+  .socialLinks {
+    @include flex-display(row);
+
+    gap: 1em;
+
+    .socialIconLink {
+      height: 100%;
+      -webkit-tap-highlight-color: initial;
+      color: white;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .footerContainer {
+    font-size: 1.1rem;
+
+    .footerLink:hover {
+      text-decoration: underline;
+    }
+
+    .contentContainer {
+      width: 100%;
+      max-width: 30rem;
+    }
+  }
+}

@@ -1,20 +1,8 @@
-// import FormGenerator from 'complex-form-generator'
-import { useState } from 'react'
-import JSONPretty from 'react-json-pretty'
-import jsonPrettyStyle from 'react-json-pretty/dist/1337'
-import Editor, { OnMount } from '@monaco-editor/react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import FormGenerator from './Packages/complex-form-generator/src/FormGenerator'
-// import AceEditor from 'react-ace'
-// import "ace-builds/src-noconflict/mode-typescript"
-// import CodeMirror from '@uiw/react-codemirror';
-// import { typescript } from '@codemirror/lang-typescript'
-import styles from './App.module.scss'
 import CfgDemoPage from './Demos/ComplexFormGenerator/CfgDemoPage'
-import Navbar from './Main/Navbar'
-import DemoContainer from './Main/DemoContainer'
-
-// import * as monaco from 'monaco-editor'
+import Navbar from './Main/components/Navbar'
+import DemoContainer from './Main/components/DemoContainer'
+import Footer from './Main/components/Footer'
 
 const APP_CONTENT: AppContent = [
   {
@@ -61,6 +49,8 @@ const App = () => {
             <Route path="*" element={<>not found</>} />
           </Routes>
         </main>
+
+        <Footer appContent={APP_CONTENT} />
       </BrowserRouter>
     </div>
   )

@@ -1,6 +1,6 @@
 import { Tab } from 'react-bootstrap'
 import Tabs from 'react-bootstrap/esm/Tabs'
-import styles from './demoContainer.module.scss'
+import styles from '../styles/demoContainer.module.scss'
 
 type Props = {
   Demo: JSX.Element

@@ -4,8 +4,8 @@ import NavDropdown from 'react-bootstrap/esm/NavDropdown'
 import NavbarBs from 'react-bootstrap/esm/Navbar'
 import { useLocation } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
+import styles from '../styles/navbar.module.scss'
 import Logo from './Logo'
-import styles from './navbar.module.scss'
 
 type Props = {
   appContent: AppContent

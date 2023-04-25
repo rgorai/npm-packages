@@ -23,7 +23,7 @@ $page-padding: 4rem;
     top: 2.65em;
     background-color: white;
     border-bottom: 1px solid #dee2e6;
-    z-index: 1;
+    z-index: 2;
     padding: 0.5em 0 0.3em;
     margin-bottom: 1.5em;
 
@@ -41,7 +41,7 @@ $page-padding: 4rem;
       }
       &:nth-of-type(3) {
         left: calc(
-          4rem + $editor-width + 2 * $container-gap +
+          $page-padding + $editor-width + 2 * $container-gap +
             calc(
               100vw - 2 * $container-gap - $editor-width - $json-width - 2 *
                 $page-padding
@@ -63,14 +63,18 @@ $page-padding: 4rem;
 .editorContainer {
   @include sticky-container;
 
-  z-index: 2;
   width: $editor-width;
   flex-shrink: 0;
+  z-index: 1;
 
   .editorWrapper {
     background-color: #1e1e1e;
     padding: 0.75rem 0;
     border-radius: $border-radius;
+
+    :global .monaco-hover {
+      z-index: 3;
+    }
   }
 }
 
