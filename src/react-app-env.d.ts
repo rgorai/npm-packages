@@ -1,7 +1,10 @@
 // eslint-disable-next-line spaced-comment
 /// <reference types="react-scripts" />
 declare module 'react-json-pretty/*'
-declare module '@codemirror/*'
+declare module '*.md' {
+  const value: string
+  export default value
+}
 
 type AppContent = {
   name: string

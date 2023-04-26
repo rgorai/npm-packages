@@ -155,13 +155,6 @@ const Footer = (props: Props) => {
       {footerContent.map((e, i) => (
         <div className={styles.contentContainer} key={i}>
           <h1>{e.heading}</h1>
-          {/* <ul>
-            {e.items.map((f, j) => (
-              <li className={cx({ [styles.horizontal]: e.horizontal })} key={j}>
-                {f}
-              </li>
-            ))}
-          </ul> */}
           {e.items}
         </div>
       ))}

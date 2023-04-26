@@ -4,8 +4,10 @@ import React, {
   useState,
   Fragment,
   useCallback,
+  useRef,
 } from 'react'
 import cx from 'classnames'
+import { Editor } from '@monaco-editor/react'
 import { getValue, setValue } from './utils/objects'
 import styles from './formGenerator.module.scss'
 import {
@@ -28,7 +30,7 @@ type StyleOptions =
       groupNestedChildren?: true
     }
 
-type Props<T> = {
+type FormGeneratorProps<T = any> = {
   seed: Seed
   formId?: string
   onChange?: FormFunction<T>
@@ -41,11 +43,14 @@ type HelperProps = {
   keyword?: keyof Keywords
 }
 
-const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
-  const [seedState, setSeedState] = useState(props.seed)
+const FormGenerator = <T extends Record<string, any>>(
+  props: FormGeneratorProps<T>
+) => {
+  const [seedState, setSeedState] = useState<Seed>(props.seed)
   const [payload, setPayload] = useState({} as T)
   const floatingLabels = !props.suppressStyles && props.floatingLabels
   const groupNestedChildren = !props.suppressStyles && props.groupNestedChildren
+  const arrayRefs = useRef<Record<string, HTMLHeadingElement[]>>({})
 
   const parseSeed = useCallback((seed: Seed): T => {
     let temp = {} as T
@@ -73,6 +78,8 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
                 currKeychain
               )
             }
+          } else if (isCodeArea(currKeyword, currVal)) {
+            temp = setValue(temp, newKeychain, currVal._value)
           }
         } else if (isKeyword(currKey) && isKeywordValue(currKey, currVal)) {
           parseSeedHelper(currVal, currKeychain, currKey)
@@ -84,6 +91,7 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
           parseSeedHelper(currVal, newKeychain)
         } else if (
           typeof currVal === 'string' ||
+          typeof currVal === 'number' ||
           typeof currVal === 'boolean'
         ) {
           temp = setValue(temp, newKeychain, currVal)
@@ -129,13 +137,10 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
     const formElements: ReactNode[] = []
 
     // loop through each key in the current seed object
-    let currIndex = 0
     for (const [currKey, currVal] of Object.entries(currSeed)) {
       const newKeychain = [...currKeychain, currKey]
-      const currInputId = `${currKey}-${currIndex + 1}--${newKeychain.join(
-        '-'
-      )}`
-      const currKeychainStr = newKeychain.join('.')
+      const currInputId = newKeychain.join('-').replaceAll(' ', '-')
+      const newKeychainStr = newKeychain.join('.')
       const currLabel = (classname?: string) => (
         <label
           className={classname ? getClassname(classname) : ''}
@@ -165,8 +170,10 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
         )
       }
 
-      const onInputChange = (value: any) => {
-        setSeedState((prev) => setValue(prev, newKeychain, value))
+      const onInputChange = (value: any, keychainOverride?: Keychain) => {
+        setSeedState((prev) =>
+          setValue(prev, keychainOverride ?? newKeychain, value)
+        )
       }
       const onSelectInputChange = (newOption: string) => {
         setSeedState((prev) =>
@@ -188,7 +195,7 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
             formElements.push(
               <div
                 className={getFloatingClassname('mb-3')}
-                key={currKeychainStr}
+                key={newKeychainStr}
               >
                 {!floatingLabels && currLabel()}
                 <textarea
@@ -213,7 +220,7 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
               onSelectInputChange(defaultOption._option)
             } else {
               formElements.push(
-                <div key={currKeychainStr}>
+                <div key={newKeychainStr}>
                   <div className={getFloatingClassname()}>
                     {!floatingLabels && currLabel()}
                     <select
@@ -245,9 +252,24 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
             }
           } else if (isCodeArea(currKeyword, currVal)) {
             formElements.push(
-              <React.Fragment key={currKeychainStr}>
+              <React.Fragment key={newKeychainStr}>
                 {currLabel()}
-                {/* <AceEditor value={currVal._value} mode={currVal._language} /> */}
+                <div className={getClassname(cx('mb-3', styles.editorWrapper))}>
+                  <Editor
+                    height="13em"
+                    language={currVal._language}
+                    theme="vs-dark"
+                    value={currVal._value}
+                    onChange={(value) =>
+                      onInputChange(value, [...newKeychain, '_value'])
+                    }
+                    options={{
+                      minimap: { enabled: false },
+                      lineDecorationsWidth: 0,
+                      lineNumbersMinChars: 3,
+                    }}
+                  />
+                </div>
               </React.Fragment>
             )
           }
@@ -256,7 +278,7 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
         // check if a keyword has been registered
         else if (isKeyword(currKey) && isKeywordValue(currKey, currVal)) {
           formElements.push(
-            <Fragment key={currKeychainStr}>
+            <Fragment key={newKeychainStr}>
               {FormGeneratorHelper({
                 seed: currVal,
                 keychain: newKeychain,
@@ -271,16 +293,31 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
           formElements.push(
             <div
               className={getClassname(
-                `mb-4 ${groupNestedChildren ? 'form-control' : ''}`
+                cx('mb-4', styles.objectContainer, {
+                  ['form-control']: groupNestedChildren,
+                })
               )}
-              key={currKeychainStr}
+              key={newKeychainStr}
             >
               {currVal.map((_, i) => {
                 const currItem = `${currKey}[${i}]`
+                arrayRefs.current[newKeychainStr] = []
                 return (
                   <React.Fragment key={i}>
-                    <div className={styles.headerContainer}>
-                      <h1>{currItem}</h1>
+                    <div
+                      className={cx(styles.headerContainer, {
+                        [styles.nestedMargin]: groupNestedChildren,
+                      })}
+                    >
+                      <h1
+                        className="array-heading"
+                        ref={(element) => {
+                          if (element)
+                            arrayRefs.current[newKeychainStr].push(element)
+                        }}
+                      >
+                        {currItem}
+                      </h1>
                       <button
                         className={cx(
                           getClassname('btn btn-danger'),
@@ -319,9 +356,19 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
               <button
                 className={cx('mt-2 mb-3', getClassname('btn btn-secondary'))}
                 type="button"
-                onClick={() =>
+                onClick={() => {
                   addToList(getValue(props.seed, [...newKeychain, 0]))
-                }
+
+                  console.log(
+                    arrayRefs.current[newKeychainStr][
+                      arrayRefs.current[newKeychainStr].length - 1
+                    ]
+                  )
+
+                  arrayRefs.current[newKeychainStr][
+                    arrayRefs.current[newKeychainStr].length - 1
+                  ]?.scrollIntoView()
+                }}
               >
                 {`Add '${currKey}'`}
               </button>
@@ -330,30 +377,48 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
           )
         } else if (typeof currVal === 'object') {
           formElements.push(
-            <React.Fragment key={currKeychainStr}>
-              <div className={styles.headerContainer}>
+            <div
+              className={getClassname(
+                cx('mb-4', styles.objectContainer, {
+                  ['form-control']: groupNestedChildren,
+                })
+              )}
+              key={newKeychainStr}
+            >
+              <div
+                className={cx(styles.headerContainer, {
+                  [styles.nestedMargin]: groupNestedChildren,
+                })}
+              >
                 <h1>{currKey}</h1>
               </div>
               {FormGeneratorHelper({
                 seed: currVal,
                 keychain: newKeychain,
               })}
-            </React.Fragment>
+            </div>
           )
         }
 
         // check for base case values
-        else if (typeof currVal === 'string') {
+        else if (typeof currVal === 'string' || typeof currVal === 'number') {
           formElements.push(
-            <div className={getFloatingClassname('mb-3')} key={currKeychainStr}>
+            <div className={getFloatingClassname('mb-3')} key={newKeychainStr}>
               {!floatingLabels && currLabel()}
               <input
                 id={currInputId}
                 className={getClassname('form-control')}
-                type="text"
                 value={currVal}
-                onChange={(ev) => onInputChange(ev.target.value)}
                 placeholder={floatingLabels ? 'placeholder' : ''}
+                {...(typeof currVal === 'number'
+                  ? {
+                      type: 'number',
+                      onChange: (ev) => onInputChange(Number(ev.target.value)),
+                    }
+                  : {
+                      type: 'text',
+                      onChange: (ev) => onInputChange(ev.target.value),
+                    })}
               />
               {floatingLabels && currLabel()}
             </div>
@@ -362,7 +427,7 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
           formElements.push(
             <div
               className={getClassname('mt-4 mb-3 form-check')}
-              key={currKeychainStr}
+              key={newKeychainStr}
             >
               <input
                 id={currInputId}
@@ -383,19 +448,17 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
       } catch (err) {
         console.error(String(err))
         formElements.push(
-          <div className={styles.generatorError} key={currKeychainStr}>
+          <div className={styles.generatorError} key={newKeychainStr}>
             Form Generator Error: see console
           </div>
         )
       }
-
-      currIndex++
     }
 
     return <>{formElements}</>
   }
 
-  // call helper to create form
+  // call recursive helper to create form
   return (
     <div className={styles.formContainer}>
       <form
@@ -412,7 +475,7 @@ const FormGenerator = <T extends Record<string, any>>(props: Props<T>) => {
 
         {props.onSubmit && (
           <>
-            <hr />
+            <hr className={getClassname('mt-4')} />
             <button
               className={getClassname('btn btn-primary')}
               form="form-generator"

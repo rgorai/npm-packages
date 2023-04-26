@@ -3,6 +3,7 @@ import CfgDemoPage from './Demos/ComplexFormGenerator/CfgDemoPage'
 import Navbar from './Main/components/Navbar'
 import DemoContainer from './Main/components/DemoContainer'
 import Footer from './Main/components/Footer'
+import DocumentationPage from './Main/components/DocumentationPage'
 
 const APP_CONTENT: AppContent = [
   {
@@ -10,7 +11,7 @@ const APP_CONTENT: AppContent = [
     path: '/complex-form-generator',
     elements: {
       Demo: <CfgDemoPage />,
-      Documentation: <>cfg docs</>,
+      Documentation: <DocumentationPage packageName="complex-form-generator" />,
       Code: <>cfg code</>,
     },
   },
@@ -36,7 +37,7 @@ const App = () => {
             {APP_CONTENT.map((e) => (
               <Route
                 path={e.path}
-                element={<DemoContainer {...e.elements} />}
+                element={<DemoContainer basePath={e.path} {...e.elements} />}
                 key={e.path}
               />
             ))}
