@@ -10,6 +10,7 @@ const DEMO_SEED: Seed = {
   string: '',
   number: 0,
   boolean: false,
+  $useDateArea: { date: '' },
   $useTextArea: { 'A normal label': '', anotherOne: '' },
   $useCodeArea: {
     codeArea: {
@@ -20,23 +21,21 @@ for e in list:
     },
   },
   $useSelectOptions: {
-    selectOptions: [
-      {
-        _option: 'option1',
-      },
-      {
-        _option: 'option2',
-        _defaultOption: true,
-      },
-      {
-        _option: 'option3',
-        _assocPayload: {
-          yay: true,
-          keep: 'nesting',
-          excitement: 100,
+    selectOptions: {
+      _defaultValue: 'option2',
+      _options: [
+        { _value: 'option1', _label: 'A custom option label' },
+        { _value: 'option2' },
+        {
+          _value: 'option3',
+          _assocPayload: {
+            keep: 'nesting',
+            excitement: 100,
+            $useDateArea: { today: '' },
+          },
         },
-      },
-    ],
+      ],
+    },
   },
   array: [
     {
@@ -45,7 +44,15 @@ for e in list:
       key3: false,
       $useTextArea: { inArray: '' },
       $useSelectOptions: {
-        select: [{ _option: 'hello' }, { _option: 'there' }],
+        multiSelect: {
+          _defaultValue: [],
+          _options: [
+            { _value: 'hey' },
+            { _value: 'there', _assocPayload: { very: false } },
+            { _value: 'buddy', _assocPayload: { tired: true } },
+            { _value: 'boy' },
+          ],
+        },
       },
     },
   ],
@@ -121,6 +128,7 @@ const CfgDemoPage = () => {
               console.log('payload passed to onSubmit:', payload)
             }}
             groupNestedChildren
+            floatingLabels
           />
         </div>
 

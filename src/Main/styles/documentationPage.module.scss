@@ -1,6 +1,11 @@
 .pageContainer {
   width: 100%;
   max-width: 60em;
-  margin: 2em auto 4em;
+  margin: 0 auto 2em;
+  padding: 2em;
   // background-color: grey;
+
+  h3 {
+    font-size: 1.25em;
+  }
 }

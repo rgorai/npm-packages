@@ -1,13 +1,6 @@
 type Keywords = {
   $useTextArea: Record<string, string>
-  $useSelectOptions: Record<
-    string,
-    {
-      _option: string
-      _defaultOption?: boolean
-      _assocPayload?: Seed
-    }[]
-  >
+  $useDateArea: Record<string, string>
   $useCodeArea: Record<
     string,
     {
@@ -15,15 +8,20 @@ type Keywords = {
       _language: MonacoLanguages
     }
   >
+  $useSelectOptions: Record<
+    string,
+    {
+      _defaultValue: string | string[]
+      _options: {
+        _value: string
+        _label?: string
+        _assocPayload?: Seed
+      }[]
+    }
+  >
 }
 
-type UseKeyword<T> = Keywords[T][string]
-
-type UseTextArea = UseKeyword<'$useTextArea'>
-
-type UseSelectOptions = UseKeyword<'$useSelectOptions'>
-
-type UseCodeArea = UseKeyword<'$useCodeArea'>
+type UseKeyword<T extends Keywords[`$use${T}`]> = Keywords[`$use${T}`][string]
 
 type MonacoLanguages =
   | 'plaintext'

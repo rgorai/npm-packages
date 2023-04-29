@@ -1,6 +1,6 @@
 type Primitives = string | number | boolean
 
-type SeedValue = Primitives | Seed | Seed[]
+type SeedValue = Primitives | Seed | Seed[] | string[]
 
 type Seed = {
   [key: string]: SeedValue
