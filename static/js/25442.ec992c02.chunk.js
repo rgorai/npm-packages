@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrgorai_npm_packages=self.webpackChunkrgorai_npm_packages||[]).push([[25442],{25442:function(a,e,p){a.exports=p.p+"static/media/README.dda8703ab81fe3abdfec.md"}}]);
