@@ -28,7 +28,7 @@ type StyleOptions =
   | {
       suppressStyles?: false
       floatingLabels?: true
-      groupNestedChildren?: true
+      groupNestedObjects?: true
     }
 
 type FormGeneratorProps<T = any> = {
@@ -44,15 +44,13 @@ type HelperProps = {
   keyword?: keyof Keywords
 }
 
-// TODO: develop custom styles api
-
 const FormGenerator = <T extends Record<string, any>>(
   props: FormGeneratorProps<T>
 ) => {
   const [seedState, setSeedState] = useState<Seed>(props.seed)
   const [payload, setPayload] = useState({} as T)
   const floatingLabels = !props.suppressStyles && props.floatingLabels
-  const groupNestedChildren = !props.suppressStyles && props.groupNestedChildren
+  const groupNestedObjects = !props.suppressStyles && props.groupNestedObjects
   const arrayRefs = useRef<Record<string, HTMLHeadingElement[]>>({})
 
   const parseSeed = useCallback((seed: Seed): T => {
@@ -292,7 +290,7 @@ const FormGenerator = <T extends Record<string, any>>(
                 className={getClassname(
                   cx({
                     [cx('form-control', styles.objectContainer)]:
-                      groupNestedChildren &&
+                      groupNestedObjects &&
                       currVal._options.find((e) => !!e._assocPayload),
                   })
                 )}
@@ -360,7 +358,7 @@ const FormGenerator = <T extends Record<string, any>>(
             <div
               className={getClassname(
                 cx('mb-4', styles.objectContainer, {
-                  ['form-control']: groupNestedChildren,
+                  ['form-control']: groupNestedObjects,
                 })
               )}
               key={newKeychainStr}
@@ -372,18 +370,18 @@ const FormGenerator = <T extends Record<string, any>>(
                   <React.Fragment key={i}>
                     <div
                       className={cx(styles.headerContainer, {
-                        [styles.nestedMargin]: groupNestedChildren,
+                        [styles.nestedMargin]: groupNestedObjects,
                       })}
                     >
-                      <h1
-                        className="array-heading"
+                      <div
+                        className={styles.objectHeading}
                         ref={(element) => {
                           if (element)
                             arrayRefs.current[newKeychainStr].push(element)
                         }}
                       >
                         {currItem}
-                      </h1>
+                      </div>
                       <button
                         className={cx(
                           getClassname('btn btn-danger'),
@@ -438,7 +436,7 @@ const FormGenerator = <T extends Record<string, any>>(
               >
                 {`Add '${currKey}'`}
               </button>
-              {!groupNestedChildren && <hr className="mt-3 mb-4" />}
+              {!groupNestedObjects && <hr className="mt-3 mb-4" />}
             </div>
           )
         } else if (typeof currVal === 'object') {
@@ -446,17 +444,17 @@ const FormGenerator = <T extends Record<string, any>>(
             <div
               className={getClassname(
                 cx('mb-4', styles.objectContainer, {
-                  ['form-control']: groupNestedChildren,
+                  ['form-control']: groupNestedObjects,
                 })
               )}
               key={newKeychainStr}
             >
               <div
                 className={cx(styles.headerContainer, {
-                  [styles.nestedMargin]: groupNestedChildren,
+                  [styles.nestedMargin]: groupNestedObjects,
                 })}
               >
-                <h1>{currKey}</h1>
+                <div className={styles.objectHeading}>{currKey}</div>
               </div>
               {FormGeneratorHelper({
                 seed: currVal,

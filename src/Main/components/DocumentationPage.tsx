@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+import MarkdownPreview from '@uiw/react-markdown-preview'
 import styles from '../styles/documentationPage.module.scss'
 
 type Props = {
@@ -20,7 +20,12 @@ const DocumentationPage = ({ packageName }: Props) => {
 
   return (
     <div className={styles.pageContainer}>
-      <ReactMarkdown children={readmeValue} />
+      <MarkdownPreview
+        source={readmeValue}
+        wrapperElement={{
+          'data-color-mode': 'light',
+        }}
+      />
     </div>
   )
 }

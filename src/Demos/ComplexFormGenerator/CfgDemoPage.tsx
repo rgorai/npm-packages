@@ -10,7 +10,7 @@ const DEMO_SEED: Seed = {
   string: '',
   number: 0,
   boolean: false,
-  $useDateArea: { date: '' },
+  $useDateArea: { date: '2000-01-01' },
   $useTextArea: { 'A normal label': '', anotherOne: '' },
   $useCodeArea: {
     codeArea: {
@@ -127,8 +127,9 @@ const CfgDemoPage = () => {
               setShowSubmitMessage(true)
               console.log('payload passed to onSubmit:', payload)
             }}
-            groupNestedChildren
-            floatingLabels
+            groupNestedObjects
+            // floatingLabels
+            // suppressStyles
           />
         </div>
 

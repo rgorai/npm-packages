@@ -1,10 +1,10 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import Form from 'react-bootstrap/esm/Form'
 import CfgDemoPage from './Demos/ComplexFormGenerator/CfgDemoPage'
 import Navbar from './Main/components/Navbar'
 import DemoContainer from './Main/components/DemoContainer'
 import Footer from './Main/components/Footer'
 import DocumentationPage from './Main/components/DocumentationPage'
+import CodePage from './Main/components/CodePage'
 
 const APP_CONTENT: AppContent = [
   {
@@ -13,7 +13,7 @@ const APP_CONTENT: AppContent = [
     elements: {
       Demo: <CfgDemoPage />,
       Documentation: <DocumentationPage packageName="complex-form-generator" />,
-      Code: <></>,
+      Code: <CodePage packageName="complex-form-generator" />,
     },
   },
   {

@@ -2,7 +2,7 @@ export const SEED_VALUE = `const DEMO_SEED: Seed = {
   string: '',
   number: 0,
   boolean: false,
-  $useDateArea: { date: '' },
+  $useDateArea: { date: '2000-01-01' },
   $useTextArea: { 'A normal label': '', anotherOne: '' },
   $useCodeArea: {
     codeArea: {
@@ -66,7 +66,7 @@ const DEMO_COMPONENT = \`(
       setShowSubmitMessage(true)
       console.log('payload passed to onSubmit:', payload)
     }}
-    groupNestedChildren
+    groupNestedObjects
   />
 )\`
 `

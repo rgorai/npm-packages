@@ -103,7 +103,11 @@ const Footer = (props: Props) => {
           <p className={styles.message}>
             If you would like to learn more about myself or my other projects,
             please visit my personal website at{' '}
-            <Link to="https://rongorai.com" target="_blank">
+            <Link
+              to="https://rongorai.com"
+              target="_blank"
+              referrerPolicy="no-referrer"
+            >
               rongorai.com
             </Link>
             !
@@ -134,7 +138,7 @@ const Footer = (props: Props) => {
               className={styles.socialIconLink}
               href={e.link}
               target="_blank"
-              rel="noreferrer"
+              referrerPolicy="no-referrer"
               key={i}
               title={e.name}
             >

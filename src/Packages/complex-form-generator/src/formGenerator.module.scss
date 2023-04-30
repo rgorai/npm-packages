@@ -6,7 +6,7 @@ $danger-button-color: #d64747;
 .formContainer {
   width: 100%;
 
-  h1 {
+  .objectHeading {
     font-size: 1.25em;
     font-weight: 600;
     margin: 0;
@@ -41,7 +41,7 @@ $danger-button-color: #d64747;
     margin-bottom: 1em;
     margin-top: 1.5em;
 
-    &.nestedMargin {
+    &.nestedMargin:first-child {
       margin-top: 0.25em;
     }
   }

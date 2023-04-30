@@ -3,9 +3,8 @@
   max-width: 60em;
   margin: 0 auto 2em;
   padding: 2em;
-  // background-color: grey;
 
-  h3 {
-    font-size: 1.25em;
+  :global .wmde-markdown * {
+    scroll-margin-top: 3.5rem;
   }
 }

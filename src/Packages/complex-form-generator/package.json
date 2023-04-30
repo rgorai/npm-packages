@@ -29,22 +29,21 @@
     "react": ">=18"
   },
   "peerDependenciesMeta": {
-    "bootstrap": { "optional": true },
-    "react": { "optional": false }
+    "bootstrap": {
+      "optional": true
+    },
+    "react": {
+      "optional": false
+    }
   },
   "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.1.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
-    "autoprefixer": "^10.4.14",
     "classnames": "^2.3.2",
-    "cssnano": "^6.0.0",
     "rollup": "^3.20.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-sass": "^1.12.19",
-    "rollup-plugin-scss": "^4.0.0",
-    "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
     "sass": "^1.62.0",
