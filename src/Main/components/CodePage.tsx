@@ -9,13 +9,13 @@ const CodePage = ({ packageName }: Props) => {
     <div className={styles.pageContainer}>
       A local preview is in development. In the meantime, please visit the{' '}
       <a
-        href={`https://github.com/rgorai/npm-packages/tree/main/src/Packages/${packageName}`}
+        href={`https://github.com/rgorai/${packageName}`}
         target="_blank"
         referrerPolicy="no-referrer"
       >
-        repository on GitHub
-      </a>
-      .
+        {packageName} repository
+      </a>{' '}
+      on GitHub.
     </div>
   )
 }
