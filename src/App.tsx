@@ -3,25 +3,27 @@ import CfgDemoPage from './Demos/ComplexFormGenerator/CfgDemoPage'
 import Navbar from './Main/components/Navbar'
 import DemoContainer from './Main/components/DemoContainer'
 import Footer from './Main/components/Footer'
-import DocumentationPage from './Main/components/DocumentationPage'
-import CodePage from './Main/components/CodePage'
+import CodePage from './Pages/components/CodePage'
+import DocumentationPage from './Pages/components/DocumentationPage'
+
+export const BASENAME = '/npm-packages'
 
 const APP_CONTENT: AppContent = [
   {
     name: 'Complex Form Generator',
-    path: '/complex-form-generator',
+    path: BASENAME + '/complex-form-generator',
     elements: {
       Demo: <CfgDemoPage />,
-      Documentation: <DocumentationPage packagePath="complex-form-generator" />,
+      Documentation: <DocumentationPage readmeName="cfgReadme" />,
       Code: <CodePage packageName="complex-form-generator" />,
     },
   },
   {
     name: 'ESlint Config',
-    path: '/eslint-config',
+    path: BASENAME + '/eslint-config',
     elements: {
       Demo: <>eslint config page</>,
-      Documentation: <DocumentationPage packagePath="@rgorai/eslint-config" />,
+      Documentation: <DocumentationPage readmeName="eslintReadme" />,
       Code: <CodePage packageName="eslint-config" />,
     },
   },
@@ -30,7 +32,7 @@ const APP_CONTENT: AppContent = [
 const App = () => {
   return (
     <div className="App">
-      <BrowserRouter basename="/npm-packages">
+      <BrowserRouter>
         <Navbar appContent={APP_CONTENT} />
 
         <main>
@@ -44,11 +46,11 @@ const App = () => {
             ))}
 
             <Route
-              path="/"
+              path={BASENAME}
               element={<Navigate replace to={`${APP_CONTENT[0].path}`} />}
             />
 
-            <Route path="*" element={<>not found</>} />
+            <Route path={BASENAME + '/*'} element={<>not found</>} />
           </Routes>
         </main>
 

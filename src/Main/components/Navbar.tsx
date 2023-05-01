@@ -3,6 +3,7 @@ import NavbarBs from 'react-bootstrap/esm/Navbar'
 import { useLocation } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import styles from '../styles/navbar.module.scss'
+import { BASENAME } from '../../App'
 import Logo from './Logo'
 
 type Props = {
@@ -15,7 +16,7 @@ const Navbar = ({ appContent }: Props) => {
   return (
     <NavbarBs bg="dark" variant="dark" expand="lg">
       <div className={styles.navContainer}>
-        <LinkContainer to="/">
+        <LinkContainer to={BASENAME}>
           <NavbarBs.Brand>
             <Logo />
           </NavbarBs.Brand>
