@@ -12,7 +12,7 @@ const APP_CONTENT: AppContent = [
     path: '/complex-form-generator',
     elements: {
       Demo: <CfgDemoPage />,
-      Documentation: <DocumentationPage packageName="complex-form-generator" />,
+      Documentation: <DocumentationPage packagePath="complex-form-generator" />,
       Code: <CodePage packageName="complex-form-generator" />,
     },
   },
@@ -21,8 +21,8 @@ const APP_CONTENT: AppContent = [
     path: '/eslint-config',
     elements: {
       Demo: <>eslint config page</>,
-      Documentation: <>eslint config docs</>,
-      Code: <>eslint config code</>,
+      Documentation: <DocumentationPage packagePath="@rgorai/eslint-config" />,
+      Code: <CodePage packageName="eslint-config" />,
     },
   },
 ]

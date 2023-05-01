@@ -1,10 +1,9 @@
 // eslint-disable-next-line spaced-comment
 /// <reference types="react-scripts" />
-declare module 'react-json-pretty/*'
-declare module '*.md' {
-  const value: string
-  export default value
-}
+declare module 'react-json-pretty'
+declare module 'react-json-pretty/dist/1337'
+declare module 'complex-form-generator/README.md'
+declare module '@rgorai/eslint-config/README.md'
 
 type AppContent = {
   name: string

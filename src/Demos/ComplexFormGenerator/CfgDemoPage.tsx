@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import JSONPretty from 'react-json-pretty'
 import jsonPrettyStyle from 'react-json-pretty/dist/1337'
 import Editor, { OnChange, OnMount } from '@monaco-editor/react'
-import FormGenerator from '../../Packages/complex-form-generator/src'
+import FormGenerator from 'complex-form-generator'
 import styles from './cfgDemoPage.module.scss'
 import { SEED_LIB, SEED_VALUE } from './editorValues'
 
@@ -24,7 +24,7 @@ for e in list:
     selectOptions: {
       _defaultValue: 'option2',
       _options: [
-        { _value: 'option1', _label: 'A custom option label' },
+        { _value: 'osption1', _label: 'A custom option label' },
         { _value: 'option2' },
         {
           _value: 'option3',

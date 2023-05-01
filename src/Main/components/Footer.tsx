@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import cx from 'classnames'
 import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -120,7 +119,7 @@ const Footer = (props: Props) => {
       items: (
         <NavbarBs variant="dark">
           <Nav className="navbar-nav">
-            {props.appContent.map((e, i) => (
+            {props.appContent.map((e) => (
               <LinkContainer to={e.path} key={e.path}>
                 <Nav.Link>{e.name}</Nav.Link>
               </LinkContainer>
