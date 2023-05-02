@@ -12,12 +12,12 @@ const DocumentationPage = ({ readmeName }: Props) => {
 
   const getReadmes = useCallback(async () => {
     const { default: cfgReadme } = await import(
-      `/node_modules/complex-form-generator/README.md`
+      `complex-form-generator/README.md`
     )
-    const { default: eslintReadme } = await import(
-      `/node_modules/@rgorai/eslint-config/README.md`
-    )
-    setReadmes({ cfgReadme, eslintReadme })
+    // const { default: eslintReadme } = await import(
+    //   `/node_modules/@rgorai/eslint-config/README.md`
+    // )
+    setReadmes({ cfgReadme })
   }, [])
 
   useEffect(() => {
