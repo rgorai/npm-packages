@@ -17,10 +17,11 @@ const DocumentationPage = ({ readmeName }: Props) => {
   }, [])
 
   useEffect(() => {
-    fetch(readmes[readmeName])
-      .then((response) => response.text())
-      .then((text) => setReadmeValue(text))
-      .catch((err) => console.error('readme fetch error', String(err)))
+    if (readmes[readmeName])
+      fetch(readmes[readmeName])
+        .then((response) => response.text())
+        .then((text) => setReadmeValue(text))
+        .catch((err) => console.error('readme fetch error', String(err)))
   }, [readmeName, readmes])
 
   return (
