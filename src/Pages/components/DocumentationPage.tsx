@@ -8,16 +8,16 @@ type Props = {
 
 const DocumentationPage = ({ readmeName }: Props) => {
   const [readmeValue, setReadmeValue] = useState('')
-  const [readmes] = useState<Record<string, any>>({})
+  const [readmes, setReadmes] = useState<Record<string, any>>({})
 
   const getReadmes = useCallback(async () => {
-    // const { default: cfgReadme } = await import(
-    //   `complex-form-generator/README.md`
-    // )
-    // const { default: eslintReadme } = await import(
-    //   `/node_modules/@rgorai/eslint-config/README.md`
-    // )
-    // setReadmes({ cfgReadme })
+    const { default: cfgReadme } = await import(
+      `complex-form-generator/README.md`
+    )
+    const { default: eslintReadme } = await import(
+      `@rgorai/eslint-config/README.md`
+    )
+    setReadmes({ cfgReadme, eslintReadme })
   }, [])
 
   useEffect(() => {

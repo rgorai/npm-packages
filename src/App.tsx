@@ -1,10 +1,4 @@
-import {
-  // BrowserRouter,
-  HashRouter,
-  Navigate,
-  Route,
-  Routes,
-} from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import CfgDemoPage from './Demos/ComplexFormGenerator/CfgDemoPage'
 import Navbar from './Main/components/Navbar'
 import DemoContainer from './Main/components/DemoContainer'
@@ -38,7 +32,7 @@ const APP_CONTENT: AppContent = [
 const App = () => {
   return (
     <div className="App">
-      <HashRouter>
+      <BrowserRouter>
         <Navbar appContent={APP_CONTENT} />
 
         <main>
@@ -61,7 +55,7 @@ const App = () => {
         </main>
 
         <Footer appContent={APP_CONTENT} />
-      </HashRouter>
+      </BrowserRouter>
     </div>
   )
 }

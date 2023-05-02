@@ -1,5 +1,6 @@
 {
   "name": "rgorai-npm-packages",
+  "homepage": "https://rgorai-npm-packages.netlify.app/",
   "description": "Ron Gorai's React + TS boilerplate for developing and demoing npm packages",
   "version": "0.1.0",
   "private": true,
