@@ -98,10 +98,6 @@ export const SEED_LIB = `type Keywords = {
   >
 }
 
-type Primitives = string | number | boolean
-
-type SeedValue = Primitives | Seed | Seed[]
-
 type Seed = {
   [key in keyof Keywords]?: Keywords[key]
 } & {
