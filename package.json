@@ -1,6 +1,6 @@
 {
   "name": "rgorai-npm-packages",
-  "homepage": "https://rgorai.github.io/npm-packages",
+  "homepage": "https://rgorai.github.io/npm-packages/",
   "description": "Ron Gorai's React + TS boilerplate for developing and demoing npm packages",
   "version": "0.1.0",
   "private": true,
@@ -37,8 +37,6 @@
     "@types/react-dom": "^18.0.0",
     "@uiw/react-markdown-preview": "^4.1.13",
     "bootstrap": "^5.2.3",
-    "complex-form-generator": "^0.0.9",
-    "monaco-editor": "^0.37.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",

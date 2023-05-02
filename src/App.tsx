@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter,
+  HashRouter,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom'
 import CfgDemoPage from './Demos/ComplexFormGenerator/CfgDemoPage'
 import Navbar from './Main/components/Navbar'
 import DemoContainer from './Main/components/DemoContainer'
@@ -6,7 +12,7 @@ import Footer from './Main/components/Footer'
 import CodePage from './Pages/components/CodePage'
 import DocumentationPage from './Pages/components/DocumentationPage'
 
-export const BASENAME = '/npm-packages'
+export const BASENAME = ''
 
 const APP_CONTENT: AppContent = [
   {
@@ -32,7 +38,7 @@ const APP_CONTENT: AppContent = [
 const App = () => {
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Navbar appContent={APP_CONTENT} />
 
         <main>
@@ -55,7 +61,7 @@ const App = () => {
         </main>
 
         <Footer appContent={APP_CONTENT} />
-      </BrowserRouter>
+      </HashRouter>
     </div>
   )
 }

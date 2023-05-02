@@ -18,13 +18,14 @@ const DEMO_SEED: Seed = {
 for e in list:
     print(e)`,
       _language: 'python',
+      _instance: Editor,
     },
   },
   $useSelectOptions: {
     selectOptions: {
       _defaultValue: 'option2',
       _options: [
-        { _value: 'osption1', _label: 'A custom option label' },
+        { _value: 'option1', _label: 'A custom option label' },
         { _value: 'option2' },
         {
           _value: 'option3',
@@ -104,6 +105,7 @@ const CfgDemoPage = () => {
                 fontSize: 13,
                 lineDecorationsWidth: 0,
                 lineNumbersMinChars: 4,
+                automaticLayout: true,
               }}
               theme="vs-dark"
               onMount={handleEditorMount}
@@ -128,8 +130,6 @@ const CfgDemoPage = () => {
               console.log('payload passed to onSubmit:', payload)
             }}
             groupNestedObjects
-            // floatingLabels
-            // suppressStyles
           />
         </div>
 
