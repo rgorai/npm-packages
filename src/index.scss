@@ -1,6 +1,19 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+$min-contrast-ratio: 3;
+
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    primary: #3790e3,
+  )
+);
+
 @import '~bootstrap/scss/bootstrap';
 
 :root {
+  --nav-height: 62px;
   --bs-dark: #212529;
 }
 

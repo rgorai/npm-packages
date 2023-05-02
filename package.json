@@ -11,9 +11,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install && chmod ug+x .husky/*",
-    "pre-commit": "lint-staged --quiet",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "pre-commit": "lint-staged --quiet"
   },
   "eslintConfig": {
     "extends": "@rgorai/eslint-config/.eslintrc"
@@ -27,7 +25,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.5.0",
-    "@rgorai/eslint-config": "^1.0.19",
+    "@rgorai/eslint-config": "^1.0.21",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",

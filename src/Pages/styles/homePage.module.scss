@@ -1,0 +1,51 @@
+@use '../../mixins' as *;
+
+.homePageContainer {
+  @include flex-display(row, center);
+
+  width: 100%;
+  height: calc(100vh - var(--nav-height));
+  padding: 7rem 5vw;
+
+  .messageContainer {
+    @include flex-display(column, flex-start, flex-start);
+
+    margin-right: 5vw;
+    z-index: 2;
+
+    .title {
+      font-size: 4.5em;
+      font-weight: 700;
+      line-height: 0.95em;
+      margin-bottom: 2vh;
+    }
+
+    .welcome {
+      max-width: 30em;
+      font-size: 1.5em;
+      font-weight: 300;
+    }
+
+    .startLinksContainer {
+      @include flex-display(row, center);
+
+      max-width: 100%;
+      margin-top: 1.5rem;
+      gap: 2em;
+      flex-wrap: wrap;
+    }
+
+    .startLink {
+      font-size: 1.75rem;
+    }
+  }
+
+  .profileImg {
+    width: 100%;
+    min-width: 0;
+    max-width: 28rem;
+    height: 100%;
+    min-height: 0;
+    border-radius: 0.75rem;
+  }
+}

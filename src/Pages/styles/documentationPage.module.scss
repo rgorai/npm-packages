@@ -1,6 +1,7 @@
 .pageContainer {
   width: 100%;
   max-width: 60em;
+  min-height: calc(100vh - var(--nav-height));
   margin: 0 auto 2em;
   padding: 2em;
 

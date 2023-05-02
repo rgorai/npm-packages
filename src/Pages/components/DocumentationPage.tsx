@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import MarkdownPreview from '@uiw/react-markdown-preview'
+import cfgReadme from 'complex-form-generator/README.md'
+import eslintReadme from '@rgorai/eslint-config/README.md'
 import styles from '../styles/documentationPage.module.scss'
 
 type Props = {
@@ -10,19 +12,9 @@ const DocumentationPage = ({ readmeName }: Props) => {
   const [readmeValue, setReadmeValue] = useState('')
   const [readmes, setReadmes] = useState<Record<string, any>>({})
 
-  const getReadmes = useCallback(async () => {
-    const { default: cfgReadme } = await import(
-      `complex-form-generator/README.md`
-    )
-    const { default: eslintReadme } = await import(
-      `@rgorai/eslint-config/README.md`
-    )
+  useEffect(() => {
     setReadmes({ cfgReadme, eslintReadme })
   }, [])
-
-  useEffect(() => {
-    getReadmes()
-  }, [getReadmes])
 
   useEffect(() => {
     fetch(readmes[readmeName])
@@ -35,9 +27,7 @@ const DocumentationPage = ({ readmeName }: Props) => {
     <div className={styles.pageContainer}>
       <MarkdownPreview
         source={readmeValue}
-        wrapperElement={{
-          'data-color-mode': 'light',
-        }}
+        wrapperElement={{ 'data-color-mode': 'light' }}
       />
     </div>
   )

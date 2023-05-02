@@ -1,17 +1,17 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CfgDemoPage from './Demos/ComplexFormGenerator/CfgDemoPage'
 import Navbar from './Main/components/Navbar'
 import DemoContainer from './Main/components/DemoContainer'
 import Footer from './Main/components/Footer'
 import CodePage from './Pages/components/CodePage'
 import DocumentationPage from './Pages/components/DocumentationPage'
-
-export const BASENAME = ''
+import HomePage from './Pages/components/HomePage'
+import EslintDemoPage from './Demos/EslintConfig/EslintDemoPage'
 
 const APP_CONTENT: AppContent = [
   {
     name: 'Complex Form Generator',
-    path: BASENAME + '/complex-form-generator',
+    path: '/complex-form-generator',
     elements: {
       Demo: <CfgDemoPage />,
       Documentation: <DocumentationPage readmeName="cfgReadme" />,
@@ -19,10 +19,10 @@ const APP_CONTENT: AppContent = [
     },
   },
   {
-    name: 'ESlint Config',
-    path: BASENAME + '/eslint-config',
+    name: 'ESLint Config',
+    path: '/eslint-config',
     elements: {
-      Demo: <>eslint config page</>,
+      Demo: <EslintDemoPage />,
       Documentation: <DocumentationPage readmeName="eslintReadme" />,
       Code: <CodePage packageName="eslint-config" />,
     },
@@ -45,12 +45,9 @@ const App = () => {
               />
             ))}
 
-            <Route
-              path={BASENAME}
-              element={<Navigate replace to={`${APP_CONTENT[0].path}`} />}
-            />
+            <Route path={'/'} element={<HomePage appContent={APP_CONTENT} />} />
 
-            <Route path={BASENAME + '/*'} element={<>not found</>} />
+            <Route path="*" element={<>not found</>} />
           </Routes>
         </main>
 

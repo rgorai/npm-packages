@@ -1666,10 +1666,10 @@
     uncontrollable "^7.2.1"
     warning "^4.0.3"
 
-"@rgorai/eslint-config@^1.0.19":
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/@rgorai/eslint-config/-/eslint-config-1.0.19.tgz#15220bb560b63f58220e797960d0cf1f0d335d7a"
-  integrity sha512-Jm14dj5q+blasdCOcI27aMAyvGO4MdYaj5b8tZGvHrWl9h6XjZIgeYzZBwwdWK5OkzcxrWc53ct9EXQNugrHeg==
+"@rgorai/eslint-config@^1.0.21":
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/@rgorai/eslint-config/-/eslint-config-1.0.21.tgz#b73b33fde9386b3d45cec0412dd7e44d0d58b0f4"
+  integrity sha512-dIG8NFkkA3TSbMSeuVmCbIiRWN2iqC8G2KCLvk7J8+7GEvwdpke/ET0Sd1E/hZt7VzGlc779FRqihVJoj4Gr3A==
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"
