@@ -37,6 +37,10 @@
 
     .startLink {
       font-size: 1.75rem;
+
+      &:hover {
+        color: #1f73c2 !important;
+      }
     }
   }
 
