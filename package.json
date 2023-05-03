@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.5.0",
-    "@rgorai/eslint-config": "^1.1.0",
+    "@rgorai/eslint-config": "^1.1.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -35,7 +35,7 @@
     "@types/react-dom": "^18.0.0",
     "@uiw/react-markdown-preview": "^4.1.13",
     "bootstrap": "^5.2.3",
-    "complex-form-generator": "^1.0.2",
+    "complex-form-generator": "^1.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",

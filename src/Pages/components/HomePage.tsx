@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
 import styles from '../styles/homePage.module.scss'
+import { APP_NAME } from '../../constants'
 
 const PROFILE_IMG_SRC = `${process.env.PUBLIC_URL}/profile-image.webp`
 
@@ -13,7 +14,7 @@ const HomePage = ({ appContent }: Props) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    document.title = `Welcome | Ron Gorai NPM`
+    document.title = `Welcome | ${APP_NAME}`
     const profileImg = document.createElement('img')
     profileImg.onload = () => setLoading(false)
     profileImg.src = PROFILE_IMG_SRC

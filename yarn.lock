@@ -1666,10 +1666,10 @@
     uncontrollable "^7.2.1"
     warning "^4.0.3"
 
-"@rgorai/eslint-config@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@rgorai/eslint-config/-/eslint-config-1.1.0.tgz#2d5edd4ac1cc89d4f8cf102e1f8eeb818adb0139"
-  integrity sha512-oPV9tlscPq/rPEsOd2/Ljznl2aJzdOfZHeQS7aG7vIVFTznPvxm0eR68+HyiB/rqYd92cJ7aNwAFQXc7qlZtUw==
+"@rgorai/eslint-config@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@rgorai/eslint-config/-/eslint-config-1.1.1.tgz#94aab98c02c90d2d4e8dd83aa212c7446fd1b680"
+  integrity sha512-Mjba2a/uxqsVPZlGtqwSXggDJOLPzsV+vhxo2A/vTDUyVOAn6N0MfGoT39AZWp3j/CUroUnf6zT9Q0d49sm0Sw==
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"
@@ -3497,10 +3497,10 @@ commondir@^1.0.1:
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==
 
-complex-form-generator@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/complex-form-generator/-/complex-form-generator-1.0.2.tgz#e9c344eebcd7085f1bec2e52d783d7405f8b7b48"
-  integrity sha512-EYZnUfaF0qzehj2kQgZzcYH2HngiYIubsHUknAfboVbCgsd1U1c8vIsPtw2w4UqWmUmZYlPraOeJkapi5cecsg==
+complex-form-generator@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/complex-form-generator/-/complex-form-generator-1.0.3.tgz#0e8c0fa8732ffa9bfee31d3522f05034598cbd88"
+  integrity sha512-plW9yKIHBnd5WpTskeTFdO3g3I/DMFaUfc7ULLKdWufi1ReeMSmW5ARicScejezBrkEocVsu+iHOZydW9DDwwA==
 
 compressible@~2.0.16:
   version "2.0.18"

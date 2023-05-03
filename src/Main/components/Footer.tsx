@@ -129,7 +129,7 @@ const Footer = (props: Props) => {
       ),
     },
     {
-      heading: 'SOCIAL MEDIA',
+      heading: 'SOCIAL LINKS',
       items: (
         <div className={styles.socialLinks}>
           {SOCIAL_LINKS.map((e, i) => (

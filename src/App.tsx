@@ -40,7 +40,13 @@ const App = () => {
             {APP_CONTENT.map((e) => (
               <Route
                 path={e.path}
-                element={<DemoContainer basePath={e.path} {...e.elements} />}
+                element={
+                  <DemoContainer
+                    name={e.name}
+                    basePath={e.path}
+                    {...e.elements}
+                  />
+                }
                 key={e.path}
               />
             ))}
