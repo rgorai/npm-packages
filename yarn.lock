@@ -3497,10 +3497,10 @@ commondir@^1.0.1:
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==
 
-complex-form-generator@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/complex-form-generator/-/complex-form-generator-1.0.0.tgz#cee4a058cc5469184293f5da2c846d378073ae0a"
-  integrity sha512-WBSowMSRxkuJniRpADyqyemBTUMexnLUuZUpH7hpM04qY+OtyAeQAd71fIg7scMAzL3L4p1kYtG0im5lX8UqIg==
+complex-form-generator@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/complex-form-generator/-/complex-form-generator-1.0.2.tgz#e9c344eebcd7085f1bec2e52d783d7405f8b7b48"
+  integrity sha512-EYZnUfaF0qzehj2kQgZzcYH2HngiYIubsHUknAfboVbCgsd1U1c8vIsPtw2w4UqWmUmZYlPraOeJkapi5cecsg==
 
 compressible@~2.0.16:
   version "2.0.18"
