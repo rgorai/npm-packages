@@ -95,9 +95,9 @@ const Footer = (props: Props) => {
       items: (
         <div>
           <p className={styles.message}>
-            I am avid full-stack software engineer from Hoboken, NJ,
+            I am an avid full-stack software engineer from Hoboken, NJ
             specializing in the TypeScript + MERN stack. I have built this site
-            to demo and document my NPM packages.
+            to demo and document the NPM packages I develop.
           </p>
           <p className={styles.message}>
             If you would like to learn more about myself or my other projects,
