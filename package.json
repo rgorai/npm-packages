@@ -35,7 +35,7 @@
     "@types/react-dom": "^18.0.0",
     "@uiw/react-markdown-preview": "^4.1.13",
     "bootstrap": "^5.2.3",
-    "complex-form-generator": "^1.0.3",
+    "complex-form-generator": "^1.0.5",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
