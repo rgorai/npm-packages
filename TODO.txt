@@ -1,3 +1,0 @@
-- develop custom styles api
-- add support for primitive value arrays
-- add input validation functionality
