@@ -14,8 +14,8 @@ type Props = {
 }
 
 const tabNames: Record<string, string> = {
-  demo: 'Demo',
   documentation: 'Documentation',
+  demo: 'Demo',
   code: 'Code',
 }
 
@@ -28,7 +28,7 @@ const DemoContainer = ({
 }: Props) => {
   const [params] = useSearchParams()
   const navigate = useNavigate()
-  const currTab = params.get('currentTab') ?? 'demo'
+  const currTab = params.get('currentTab') ?? 'documentation'
 
   useEffect(() => {
     document.title = `${tabNames[currTab]} | ${name} | ${APP_NAME}`
@@ -44,11 +44,11 @@ const DemoContainer = ({
         }}
         transition={false}
       >
-        <Tab eventKey="demo" title="Demo">
-          {Demo}
-        </Tab>
         <Tab eventKey="documentation" title="Documentation">
           {Documentation}
+        </Tab>
+        <Tab eventKey="demo" title="Demo">
+          {Demo}
         </Tab>
         <Tab eventKey="code" title="Code">
           {Code}

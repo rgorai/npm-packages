@@ -10,21 +10,21 @@ import EslintDemoPage from './Demos/EslintConfig/EslintDemoPage'
 
 const APP_CONTENT: AppContent = [
   {
-    name: 'Complex Form Generator',
-    path: '/complex-form-generator',
-    elements: {
-      Demo: <CfgDemoPage />,
-      Documentation: <DocumentationPage readmeName="cfgReadme" />,
-      Code: <CodePage packageName="complex-form-generator" />,
-    },
-  },
-  {
     name: 'ESLint Config',
     path: '/eslint-config',
     elements: {
       Demo: <EslintDemoPage />,
       Documentation: <DocumentationPage readmeName="eslintReadme" />,
       Code: <CodePage packageName="eslint-config" />,
+    },
+  },
+  {
+    name: 'Complex Form Generator',
+    path: '/complex-form-generator',
+    elements: {
+      Demo: <CfgDemoPage />,
+      Documentation: <DocumentationPage readmeName="cfgReadme" />,
+      Code: <CodePage packageName="complex-form-generator" />,
     },
   },
 ]
