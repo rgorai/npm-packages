@@ -1855,10 +1855,10 @@
     uncontrollable "^8.0.1"
     warning "^4.0.3"
 
-"@rgorai/eslint-config@^1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rgorai/eslint-config/-/eslint-config-1.2.8.tgz#4fd8220c5084ef0ff20df13986f08d19ea057d9f"
-  integrity sha512-wKDgQu71i9iNMglSkBdlDfOe5DXxEEyv0PluoZN4Wqqe0NmribY66ghiafkSsN5I0wSbiV7AF7ZADZDVlUA4Pw==
+"@rgorai/eslint-config@^1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@rgorai/eslint-config/-/eslint-config-1.2.9.tgz#fc96cedefd786c72dd8d7537606a43b8d055cbaa"
+  integrity sha512-gkRsVHd93Q+XkEEmoBkl3HbvuyLwzP4uemraIXFW2uM92hd1wnWOWr7syL06uyG+YUXW0RfoTFBEuvHzWGUoQQ==
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"

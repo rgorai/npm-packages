@@ -43,7 +43,7 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "@rgorai/eslint-config": "^1.2.8",
+    "@rgorai/eslint-config": "^1.2.9",
     "@types/react-router-bootstrap": "^0.26.0",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
